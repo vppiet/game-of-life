@@ -1,7 +1,7 @@
 {
   "name": "game-of-life",
   "version": "1.0.0",
-  "description": "Implementation of Conway's Game of Life in TypeScript",,
+  "description": "Implementation of Conway's Game of Life in TypeScript",
   "private": true,
   "dependencies": {},
   "devDependencies": {
