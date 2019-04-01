@@ -1,7 +1,7 @@
-import { CellRow } from "../CellRow";
+import { GridRow } from "../GridRow";
 
 export interface GridInterface {
-    rows: Array<CellRow>;
+    rows: Array<GridRow>;
     height: number;
     populate(): this;
     width: number;

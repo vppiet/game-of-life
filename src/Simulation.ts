@@ -4,24 +4,22 @@ import { Grid } from './Grid';
 export class Simulation implements SimulationInterface {
     animationSpeed: number;
     cycleNr: number;
+    element: HTMLElement;
     grid: Grid;
     running: boolean;
-    siteElement: HTMLElement;
-    height: number;
-    width: number;
+    toBeStopped: boolean;
 
-    constructor(height: number, width: number, siteElementID: string) {
+    constructor(height: number, width: number, elementID: string) {
+        this.animationSpeed = 200;
         this.cycleNr = 0;
-        this.height = height;
-        this.width = width;
-        this.grid = new Grid(this.height, this.width);
-        this.siteElement = document.getElementById(siteElementID);
+        this.element = document.getElementById(elementID);
+        this.grid = new Grid(height, width);
+        this.running = false;
+        this.toBeStopped = false;
     }
 
-    populateGrid() {
-        for (let row of this.grid.rows) {
-            row.populate();
-        }
+    populateGridWithRandomStates() {
+        
     }
 
     start() {

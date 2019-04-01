@@ -1,8 +1,8 @@
 import { GridInterface } from './interfaces/GridInterface';
-import { CellRow } from './CellRow';
+import { GridRow } from './GridRow';
 
 export class Grid implements GridInterface {
-    rows: Array<CellRow>;
+    rows: Array<GridRow>;
     height: number;
     width: number;
 
@@ -14,7 +14,7 @@ export class Grid implements GridInterface {
 
     populate() {
         for (let y = 0; y < this.height; y++) {
-            this.rows.push(new CellRow(this.width, y));
+            this.rows.push(new GridRow(this.width, y));
         }
 
         return this;
