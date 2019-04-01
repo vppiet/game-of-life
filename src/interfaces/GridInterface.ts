@@ -1,4 +1,4 @@
-import { CellRow } from "./CellRow";
+import { CellRow } from "../CellRow";
 
 export interface GridInterface {
     rows: Array<CellRow>;

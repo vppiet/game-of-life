@@ -1,4 +1,4 @@
-import { SimulationInterface } from './SimulationInterface';
+import { SimulationInterface } from './interfaces/SimulationInterface';
 import { Grid } from './Grid';
 
 export class Simulation implements SimulationInterface {

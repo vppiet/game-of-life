@@ -1,4 +1,4 @@
-import { PointInterface } from "./PointInterface";
+import { PointInterface } from "./interfaces/PointInterface";
 
 export class Point implements PointInterface {
     readonly x: number;

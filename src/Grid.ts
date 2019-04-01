@@ -1,4 +1,4 @@
-import { GridInterface } from './GridInterface';
+import { GridInterface } from './interfaces/GridInterface';
 import { CellRow } from './CellRow';
 
 export class Grid implements GridInterface {

@@ -1,4 +1,4 @@
-import { CellInterface } from "./CellInterface";
+import { CellInterface } from "./interfaces/CellInterface";
 import { Point } from "./Point";
 
 export class Cell implements CellInterface {

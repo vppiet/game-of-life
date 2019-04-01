@@ -1,4 +1,4 @@
-import { CellRowInterface } from "./CellRowInterface";
+import { CellRowInterface } from "./interfaces/CellRowInterface";
 import { Cell } from './Cell';
 
 export class CellRow implements CellRowInterface {
