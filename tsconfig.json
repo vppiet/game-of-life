@@ -2,8 +2,10 @@
     "compilerOptions": {
         "outDir": "./dist/js/",
         "noImplicitAny": true,
+        "sourceMap": true,
         "module": "es6",
-        "target": "es6",
-        "allowJs": true
-    }
+        "target": "es6"
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"]
 }
