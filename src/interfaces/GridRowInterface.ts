@@ -1,8 +1,10 @@
 import { Cell } from '../Cell';
 
 export interface GridRowInterface {
-    row: Array<Cell>;
-    rowID: number;
+    cells: Array<Cell>;
+    readonly id: number;
     width: number;
-    populate(): void;
+
+    initialize(): this;
+    populate(): this;
 }
