@@ -1,26 +1,44 @@
 import { CellInterface } from "./interfaces/CellInterface";
-import { Point } from "./Point";
+import { GridRow } from "./GridRow";
 
 export class Cell implements CellInterface {
-    location: Point;
-    state: boolean;
-    siteElement: HTMLElement;
+    public element: HTMLElement;
+    public readonly coordinateX: number;
+    public readonly coordinateY: number;
+    public readonly parentGridRow: GridRow;
+    public tickStates: Array<boolean>;
 
-    constructor(x: number, y: number, state: boolean, element: HTMLElement) {
-        this.location = new Point(x, y);
-        this.state = state;
-        this.siteElement = element;
+    constructor(coordinateX: number, coordinateY: number, parentGridRow: GridRow) {
+        this.element = undefined;
+        this.coordinateX = coordinateX;
+        this.coordinateY = coordinateY;
+        this.parentGridRow = parentGridRow;
+        this.tickStates = [false, false];
     }
 
-    die() {
-        this.state = false;
+    public initialize() {
+        // Create DOM element
+        this.element = document.createElement('div');
+        
+        // Set ID
+        this.element.setAttribute('id', `cell-${this.coordinateY}-${this.coordinateX}`);
+
+        // Set default background-color to black
+        this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 1.0);');
+        this.parentGridRow.parentGrid.element.insertAdjacentElement('beforeend', this.element);
+        return this;
+    };
+
+    public die() {
+        this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 0.0);');
+        return this;
     }
 
-    emerge() {
-        this.state = true;
+    public emerge() {
+        this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 0.0);');
+        return this;
     }
 
-    isAlive() {
-        return this.state;
-    }
+    public getAliveNeighborCount() { return 0; };
+    public isAlive() { return this.tickStates[0]; };
 }

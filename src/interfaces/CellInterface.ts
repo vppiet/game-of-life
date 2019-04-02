@@ -1,10 +1,11 @@
-import { Point } from '../Point';
-
 export interface CellInterface {
-    siteElement: HTMLElement;
-    location: Point;
-    state: boolean;
+    element: HTMLElement;
+    readonly coordinateX: number;
+    readonly coordinateY: number;
+    tickStates: Array<boolean>;
+
     die(): void;
     emerge(): void;
+    getAliveNeighborCount(): number;
     isAlive(): boolean;
 }
