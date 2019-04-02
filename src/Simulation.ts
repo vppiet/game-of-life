@@ -2,31 +2,35 @@ import { SimulationInterface } from './interfaces/SimulationInterface';
 import { Grid } from './Grid';
 
 export class Simulation implements SimulationInterface {
-    animationSpeed: number;
-    cycleNr: number;
-    element: HTMLElement;
-    grid: Grid;
-    running: boolean;
-    toBeStopped: boolean;
+    public readonly animationSpeed: number;
+    public readonly tick: number;
+    public readonly grid: Grid;
+    public running: boolean;
+    public toBeStopped: boolean;
 
     constructor(height: number, width: number, elementID: string) {
         this.animationSpeed = 200;
-        this.cycleNr = 0;
-        this.element = document.getElementById(elementID);
-        this.grid = new Grid(height, width);
+        this.tick = 0;
+        this.grid = new Grid(height, width, this, elementID);
         this.running = false;
         this.toBeStopped = false;
     }
 
-    populateGridWithRandomStates() {
-        
+    public initializeGrid() {
+        this.grid.initialize();
+        return this;
     }
 
-    start() {
-
+    public populateGrid() {
+        this.grid.populate();
+        return this;
     }
 
-    stop() {
+    public start() {
+        return this.tick;
+    }
 
+    public stop() {
+        return this.tick;
     }
 }

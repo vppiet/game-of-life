@@ -1,14 +1,14 @@
 import { Grid } from '../Grid'
 
 export interface SimulationInterface {
-    animationSpeed: number;
-    cycleNr: number;
-    element: HTMLElement;
-    grid: Grid;
+    readonly animationSpeed: number;
+    readonly tick: number;
+    readonly grid: Grid;
     running: boolean;
     toBeStopped: boolean;
 
-    populateGridWithRandomStates(): void;
-    start(): void;
-    stop(): void;
+    initializeGrid(): this;
+    populateGrid(): this;
+    start(): number;
+    stop(): number;
 }
