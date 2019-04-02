@@ -40,32 +40,54 @@ export class Grid implements GridInterface {
     private _setCellNeighbors() {
         for (let row of this.rows) {
             for (let cell of row.cells) {
-                const x = cell.coordinateX;
-                const y = cell.coordinateY;
+                const cellCoordX = cell.coordinateX;
+                const cellCoordY = cell.coordinateY;
 
-                // Northern neighbors (cell's row minus one)
-                if (!(y - 1 < 0)) {
-                    const northernRow = this.rows[y-1];
+                // Northern neighbors (if there is a row above)
+                if (cellCoordY - 1 >= 0) {
+                    const northernRow = this.rows[cellCoordY-1];
 
-                    // NORTHWESTERN NEIGHBOR
-
-
-                    // NORTHERN NEIGHBOR
-                    const northernNeighbor = northernRow.cells[x];
-                    cell.neighbors.push(northernNeighbor);
+                    // NORTHWESTERN NEIGHBOR (upleft)
+                    if (cellCoordX - 1 >= 0) {
+                        cell.neighbors.push(northernRow.cells[cellCoordX-1])
+                    }
                     
-                    // NORTHEASTERN NEIGHBOR
+                    // NORTHERN NEIGHBOR (up, there is always a neighbor above)
+                    cell.neighbors.push(northernRow.cells[cellCoordX]);
 
+                    // NORTHEASTERN NEIGHBOR (upright)
+                    if (cellCoordX + 1 <= northernRow.width - 1) {
+                        cell.neighbors.push(northernRow.cells[cellCoordX+1])
+                    }
                 }
 
-                // EASTERN NEIGHBOR
+                // EASTERN NEIGHBOR (right)
+                if (cellCoordX + 1 <= this.width - 1) {
+                    cell.neighbors.push(row.cells[cellCoordX+1]);
+                }
 
-                // Southern neighbors
-                    // SOUTHEASTERN NEIGHBOR
-                    // SOUTHERN NEIGHBOR
-                    // SOUTHWESTERN NEIGHBOR
+                // Southern neighbors (if there is a row below)
+                if (cellCoordY + 1 <= this.height - 1) {
+                    const southernRow = this.rows[cellCoordY+1];
 
-                // WESTERN NEIGHBOR
+                    // SOUTHEASTERN NEIGHBOR (downright)
+                    if (cellCoordX + 1 <= southernRow.width - 1) {
+                        cell.neighbors.push(southernRow.cells[cellCoordX+1])
+                    }
+
+                    // SOUTHERN NEIGHBOR (down, there is always a neighbor below)
+                    cell.neighbors.push(southernRow.cells[cellCoordX]);
+
+                    // SOUTHWESTERN NEIGHBOR (downleft)
+                    if (cellCoordX - 1 >= 0) {
+                        cell.neighbors.push(southernRow.cells[cellCoordX-1]);
+                    }
+                }
+
+                // WESTERN NEIGHBOR (left)
+                if (cellCoordX - 1 >= 0) {
+                    cell.neighbors.push(row.cells[cellCoordX-1]);
+                }
             }
         }
     }
