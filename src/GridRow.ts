@@ -9,7 +9,7 @@ export class GridRow implements GridRowInterface {
     public width: number;
 
     constructor(width: number, id: number, parentGrid: Grid) {
-        this.cells = new Array();
+        this.cells = new Array<Cell>();
         this.id = id;
         this.parentGrid = parentGrid;
         this.width = width;
@@ -28,10 +28,8 @@ export class GridRow implements GridRowInterface {
     populate() {
         // Populate cells with random states (for now)
         for (let cell of this.cells) {
-
-            if (Math.round(Math.random()) === 1) {
-                cell.emerge();
-            }
+            const randomState = true ? Math.round(Math.random()) === 1 : false;
+            cell.setInitialState(randomState);
         }
         return this;
     }

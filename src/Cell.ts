@@ -5,6 +5,7 @@ export class Cell implements CellInterface {
     public element: HTMLElement;
     public readonly coordinateX: number;
     public readonly coordinateY: number;
+    public neighbors: Array<Cell>;
     public readonly parentGridRow: GridRow;
     public tickStates: Array<boolean>;
 
@@ -12,6 +13,7 @@ export class Cell implements CellInterface {
         this.element = undefined;
         this.coordinateX = coordinateX;
         this.coordinateY = coordinateY;
+        this.neighbors = new Array<Cell>();
         this.parentGridRow = parentGridRow;
         this.tickStates = [false, false];
     }
@@ -25,17 +27,41 @@ export class Cell implements CellInterface {
 
         // Set default background-color to black
         this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 1.0);');
+
         this.parentGridRow.parentGrid.element.insertAdjacentElement('beforeend', this.element);
         return this;
     };
 
-    public die() {
+    // Sets the initial state (tickState[0]) at tick zero reading.
+    // This will be called before running the simulation.
+    public setInitialState(state: boolean) {
+        this.tickStates[0] = state;
+
+        // Cell is by default dead (black in color) so we check for
+        // live initial state.
+        if (this.tickStates[0]) {
+            this._turnWhite();
+        }
+        return this;
+    }
+
+    private _turnWhite() {
         this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 0.0);');
         return this;
     }
 
+    private _turnBlack() {
+        this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 1.0);');
+        return this;
+    }
+
+    public die() {
+        this._turnBlack();
+        return this;
+    }
+
     public emerge() {
-        this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 0.0);');
+        this._turnWhite();
         return this;
     }
 

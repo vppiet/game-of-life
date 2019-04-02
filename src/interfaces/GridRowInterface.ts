@@ -1,7 +1,7 @@
-import { Cell } from '../Cell';
+import { CellInterface } from './CellInterface';
 
 export interface GridRowInterface {
-    cells: Array<Cell>;
+    cells: Array<CellInterface>;
     readonly id: number;
     width: number;
 
