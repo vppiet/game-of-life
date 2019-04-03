@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #simulationGrid {
+            border: 1px solid rgb(0, 0, 0);
+            width:  400px;
+        }
+    </style>
+    <title>Game of Life: Demo</title>
+</head>
+<body>
+    <div id="simulationGrid"></div>
+
+    <script type="module">
+        import { GameOfLife } from "../js/gameoflife-bundle.mjs";
+
+        const mySimulation = new GameOfLife(100, 100, '#simulationGrid');
+        mySimulation.initializeGrid().populateGrid();
+        mySimulation.start();
+        window.mySimulation = mySimulation;
+    </script>
+</body>
+</html>
