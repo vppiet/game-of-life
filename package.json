@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "rollup": "^1.7.4",
+    "rollup": "^1.8.0",
     "rollup-plugin-typescript": "^1.0.1",
     "ts-loader": "^5.3.3",
     "tslib": "^1.9.3",
