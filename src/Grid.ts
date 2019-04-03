@@ -110,4 +110,33 @@ export class Grid implements GridInterface {
 
         return this;
     }
+
+    // Run tick.
+    public runTick(tick: number) {
+        const currentStateIndex = tick % 2;
+        const nextStateIndex = Math.abs(currentStateIndex - 1);
+
+        for (let row of this.rows) {
+            for (let cell of row.cells) {
+                const liveNeighborCount = cell.getAliveNeighborCount(currentStateIndex);
+
+                // If cell is alive and has less than two live neighbors
+                if (cell.tickStates[currentStateIndex] === true && (liveNeighborCount < 2 || liveNeighborCount > 3)) {
+                    cell.die();
+                    cell.tickStates[nextStateIndex] = false;
+                    continue;
+                }
+
+                // If cell is dead and has exactly three live neighbors
+                if (cell.tickStates[currentStateIndex] === false && liveNeighborCount === 3) {
+                    cell.emerge();
+                    cell.tickStates[nextStateIndex] = true;
+                    continue;
+                }
+
+                // If no changes are made, pass current state to next tick
+                cell.tickStates[nextStateIndex] = cell.tickStates[currentStateIndex];
+            }
+        }
+    }
 }
