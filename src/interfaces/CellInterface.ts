@@ -6,6 +6,4 @@ export interface CellInterface {
 
     die(): void;
     emerge(): void;
-    getAliveNeighborCount(): number;
-    isAlive(): boolean;
 }
