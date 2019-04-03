@@ -15,13 +15,13 @@ export class Cell implements CellInterface {
         this.coordinateY = coordinateY;
         this.neighbors = new Array<Cell>();
         this.parentGridRow = parentGridRow;
-        this.tickStates = [false, false];
+        this.tickStates = [false, undefined];
     }
 
     public initialize() {
         // Create DOM element
         this.element = document.createElement('div');
-        
+
         // Set ID
         this.element.setAttribute('id', `cell-${this.coordinateY}-${this.coordinateX}`);
 
@@ -32,7 +32,7 @@ export class Cell implements CellInterface {
         return this;
     };
 
-    // Sets the initial state (tickState[0]) at tick zero reading.
+    // Sets the initial state (tickState[0]) at tick zero.
     // This will be called before running the simulation.
     public setInitialState(state: boolean) {
         this.tickStates[0] = state;
@@ -46,7 +46,7 @@ export class Cell implements CellInterface {
     }
 
     private _turnWhite() {
-        this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 0.0);');
+        this.element.setAttribute('style', 'background-color: rgba(256, 256, 256, 1.0);');
         return this;
     }
 
@@ -65,6 +65,19 @@ export class Cell implements CellInterface {
         return this;
     }
 
-    public getAliveNeighborCount() { return 0; };
-    public isAlive() { return this.tickStates[0]; };
+    public getAliveNeighborCount(stateIndex: number) {
+        let count = 0;
+
+        for (let neighbor of this.neighbors) {
+            if (neighbor.isAlive(stateIndex)) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public isAlive(index: number) {
+        return this.tickStates[index];
+    }
 }
