@@ -17,4 +17,13 @@ Repository:
 // Entry point
 import { Simulation } from "./Simulation";
 
+// ES6 Module export:
 export const GameOfLife = Simulation;
+
+// OR
+
+// // Attach to window object:
+// declare global {
+//     interface Window { [key: string]: any; }
+// }
+// window.GameOfLife = Simulation;

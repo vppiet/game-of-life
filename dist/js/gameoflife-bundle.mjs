@@ -234,6 +234,7 @@ class Simulation {
         return this.tick;
     }
 }
+//# sourceMappingURL=Simulation.js.map
 
 /*
 Title:
@@ -250,7 +251,14 @@ Contributors:
 Repository:
     https://www.github.com/vppiet/game-of-life/
 */
+// ES6 Module export:
 const GameOfLife = Simulation;
+// OR
+// // Attach to window object:
+// declare global {
+//     interface Window { [key: string]: any; }
+// }
+// window.GameOfLife = Simulation;
 //# sourceMappingURL=Index.js.map
 
 export { GameOfLife };
