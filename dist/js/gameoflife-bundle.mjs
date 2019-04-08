@@ -58,7 +58,6 @@ class Cell {
         return this.tickStates[index];
     }
 }
-//# sourceMappingURL=Cell.js.map
 
 class GridRow {
     constructor(width, id, parentGrid) {
@@ -84,7 +83,6 @@ class GridRow {
         return this;
     }
 }
-//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -197,7 +195,6 @@ class Grid {
         }
     }
 }
-//# sourceMappingURL=Grid.js.map
 
 class Simulation {
     constructor(height, width, elementID) {
@@ -234,7 +231,6 @@ class Simulation {
         return this.tick;
     }
 }
-//# sourceMappingURL=Simulation.js.map
 
 /*
 Title:
@@ -244,7 +240,7 @@ Year:
 License:
     MIT
 Contributors:
-    Juho Aallonloiske
+    Juho Aallonloiske oli täällä
     Hassan Maskati
     Petteri Peltokangas
     Ville Pietarinen
@@ -258,7 +254,6 @@ const GameOfLife = Simulation;
 // declare global {
 //     interface Window { [key: string]: any; }
 // }
-// window.GameOfLife = Simulation;
-//# sourceMappingURL=Index.js.map
+// window.GameOfLife = Simulation
 
 export { GameOfLife };

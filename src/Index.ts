@@ -6,7 +6,7 @@ Year:
 License:
     MIT
 Contributors:
-    Juho Aallonloiske
+    Juho Aallonloiske oli täällä
     Hassan Maskati
     Petteri Peltokangas
     Ville Pietarinen
@@ -26,4 +26,4 @@ export const GameOfLife = Simulation;
 // declare global {
 //     interface Window { [key: string]: any; }
 // }
-// window.GameOfLife = Simulation;
+// window.GameOfLife = Simulation
