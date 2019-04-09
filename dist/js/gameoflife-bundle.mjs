@@ -220,6 +220,7 @@ class Simulation {
             console.log(`Tick: ${this.tick}`);
             this.grid.runTick(this.tick);
             this.tick++;
+            document.getElementById("showTick").innerHTML = (`${this.tick}`);
         }, this.tickRate);
         this.toBeStopped = false;
         return this.tick; // return latest tick
@@ -240,7 +241,7 @@ Year:
 License:
     MIT
 Contributors:
-    Juho Aallonloiske oli täällä
+    Juho Aallonloiske
     Hassan Maskati
     Petteri Peltokangas
     Ville Pietarinen
@@ -254,6 +255,6 @@ const GameOfLife = Simulation;
 // declare global {
 //     interface Window { [key: string]: any; }
 // }
-// window.GameOfLife = Simulation
+// window.GameOfLife = Simulation;
 
 export { GameOfLife };

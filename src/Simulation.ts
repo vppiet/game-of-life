@@ -35,6 +35,7 @@ export class Simulation implements SimulationInterface {
             console.log(`Tick: ${this.tick}`);
             this.grid.runTick(this.tick);
             this.tick++;
+            document.getElementById("showTick").innerHTML = (`${this.tick}`);
         }, this.tickRate);
 
         this.toBeStopped = false;
