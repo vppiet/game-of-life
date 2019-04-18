@@ -8,6 +8,7 @@ export class Grid implements GridInterface {
     public rows: Array<GridRow>;
     public readonly width: number;
     public readonly parentSimulation: Simulation;
+    public cellStats: {alive: number, dead: number};
 
     constructor(height: number, width: number, parentSimulation: Simulation, elementID: string) {
         this.element = document.querySelector(elementID);
@@ -15,6 +16,7 @@ export class Grid implements GridInterface {
         this.rows = new Array<GridRow>();
         this.width = width;
         this.parentSimulation = parentSimulation;
+        this.cellStats = {alive: 0, dead: 0};
     }
 
     public initialize() {
