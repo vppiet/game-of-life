@@ -58,6 +58,7 @@ class Cell {
         return this.tickStates[index];
     }
 }
+//# sourceMappingURL=Cell.js.map
 
 class GridRow {
     constructor(width, id, parentGrid) {
@@ -76,9 +77,19 @@ class GridRow {
     }
     populate() {
         // Populate cells with random states (for now)
-        for (let cell of this.cells) {
-            const randomState = Math.round(Math.random()) === 1;
+        /* for (let cell of this.cells) {
+            const randomState = true ? Math.round(Math.random()) === 1 : false;
             cell.setInitialState(randomState);
+        } */
+        // Alternative method -- Set the probability of initial cell state
+        for (let cell of this.cells) {
+            const randomState = Math.random();
+            if (randomState >= 0.5) {
+                cell.setInitialState(false);
+            }
+            else {
+                cell.setInitialState(true);
+            }
         }
         return this;
     }
@@ -91,6 +102,7 @@ class Grid {
         this.rows = new Array();
         this.width = width;
         this.parentSimulation = parentSimulation;
+        this.cellStats = { alive: 0, dead: 0 };
     }
     initialize() {
         // Style element to a grid based on given width & height.
@@ -195,11 +207,12 @@ class Grid {
         }
     }
 }
+//# sourceMappingURL=Grid.js.map
 
 class Simulation {
     constructor(height, width, elementID) {
         this.tick = 0;
-        this.tickRate = 100; // default tick rate in milliseconds
+        this.tickRate = 500; // default tick rate in milliseconds
         this.grid = new Grid(height, width, this, elementID);
         this.running = false;
         this.toBeStopped = false;
@@ -232,6 +245,7 @@ class Simulation {
         return this.tick;
     }
 }
+//# sourceMappingURL=Simulation.js.map
 
 /*
 Title:
@@ -256,5 +270,6 @@ const GameOfLife = Simulation;
 //     interface Window { [key: string]: any; }
 // }
 // window.GameOfLife = Simulation;
+//# sourceMappingURL=Index.js.map
 
 export { GameOfLife };

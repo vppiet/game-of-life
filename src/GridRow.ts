@@ -27,10 +27,21 @@ export class GridRow implements GridRowInterface {
 
     populate() {
         // Populate cells with random states (for now)
-        for (let cell of this.cells) {
+        /* for (let cell of this.cells) {
             const randomState = true ? Math.round(Math.random()) === 1 : false;
             cell.setInitialState(randomState);
+        } */
+
+        // Alternative method -- Set the probability of initial cell state
+        for (let cell of this.cells) {
+            const randomState = Math.random();
+            if (randomState >= 0.5) {
+                cell.setInitialState(false);
+            } else {
+                cell.setInitialState(true);
+            }
         }
+
         return this;
     }
 }
