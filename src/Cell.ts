@@ -49,35 +49,41 @@ export class Cell implements CellInterface {
         this.element.setAttribute('style', 'background-color: rgba(256, 256, 256, 1.0);');
         return this;
     }
-
+    
     private _turnBlack() {
         this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 1.0);');
         return this;
     }
-
+    
     public die() {
         this._turnBlack();
         return this;
     }
-
+    
     public emerge() {
         this._turnWhite();
         return this;
     }
-
+    
     public getAliveNeighborCount(stateIndex: number) {
         let count = 0;
-
+        
         for (let neighbor of this.neighbors) {
             if (neighbor.isAlive(stateIndex)) {
                 count++;
             }
         }
-
+        
         return count;
     }
-
+    
     public isAlive(index: number) {
         return this.tickStates[index];
     }
 }
+
+/* let methodCalls = 0;
+    methodCalls++;
+    console.log("White Cells: " + methodCalls);
+
+    this.element.style.backgroundColor = "red"; */

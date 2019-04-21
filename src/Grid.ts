@@ -1,6 +1,7 @@
 import { GridInterface } from './interfaces/GridInterface';
 import { GridRow } from './GridRow';
 import { Simulation } from './Simulation';
+import { Cell } from './Cell';
 
 export class Grid implements GridInterface {
     public element: HTMLElement;
@@ -9,6 +10,7 @@ export class Grid implements GridInterface {
     public readonly width: number;
     public readonly parentSimulation: Simulation;
     public cellStats: {alive: number, dead: number};
+    public readonly cell: Cell;
 
     constructor(height: number, width: number, parentSimulation: Simulation, elementID: string) {
         this.element = document.querySelector(elementID);
@@ -141,4 +143,31 @@ export class Grid implements GridInterface {
             }
         }
     }
+
+    // Algorithm for checking number of dead or alive cells:
+    /*  
+    1. declare cellStats object
+    2. create the function and variables
+    3. check the cells' matrix/grid
+    4. count the total number of alive or dead elements for every tick state
+    --> for each row and column, check to see if cell state is true/false
+    5. store and return this value in the variable
+    6. display it in html
+    */
+
+    public cellCount() {
+        this.cellStats.alive = 0;
+        let cellAlive = 0;
+        let count = 0;
+        for (let x = 0; x < this.height; x++) {
+            for (let y = 0; y < this.width; y++) {
+                if (this.cell.tickStates[0]) {
+                    count++;
+                }
+            }
+        }
+        //this.cellStats.alive = count;
+        console.log("COUNT ----->> " + count);
+    }
+
 }
