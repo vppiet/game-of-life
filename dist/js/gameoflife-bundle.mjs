@@ -58,6 +58,11 @@ class Cell {
         return this.tickStates[index];
     }
 }
+/* let methodCalls = 0;
+    methodCalls++;
+    console.log("White Cells: " + methodCalls);
+
+    this.element.style.backgroundColor = "red"; */ 
 //# sourceMappingURL=Cell.js.map
 
 class GridRow {
@@ -94,6 +99,7 @@ class GridRow {
         return this;
     }
 }
+//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -206,13 +212,35 @@ class Grid {
             }
         }
     }
+    // Algorithm for checking number of dead or alive cells:
+    /*
+    1. declare cellStats object
+    2. create the function and variables
+    3. check the cells' matrix/grid
+    4. count the total number of alive or dead elements for every tick state
+    --> for each row and column, check to see if cell state is true/false
+    5. store and return this value in the variable
+    6. display it in html
+    */
+    cellCount() {
+        this.cellStats.alive = 0;
+        let count = 0;
+        for (let x = 0; x < this.height; x++) {
+            for (let y = 0; y < this.width; y++) {
+                if (this.cell.tickStates[0]) {
+                    count++;
+                }
+            }
+        }
+        //this.cellStats.alive = count;
+        console.log("COUNT ----->> " + count);
+    }
 }
-//# sourceMappingURL=Grid.js.map
 
 class Simulation {
     constructor(height, width, elementID) {
         this.tick = 0;
-        this.tickRate = 500; // default tick rate in milliseconds
+        this.tickRate = 1000; // default tick rate in milliseconds
         this.grid = new Grid(height, width, this, elementID);
         this.running = false;
         this.toBeStopped = false;
@@ -234,6 +262,7 @@ class Simulation {
             this.grid.runTick(this.tick);
             this.tick++;
             document.getElementById("showTick").innerHTML = (`${this.tick}`);
+            this.grid.cellCount();
         }, this.tickRate);
         this.toBeStopped = false;
         return this.tick; // return latest tick
