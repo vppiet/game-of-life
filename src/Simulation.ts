@@ -10,7 +10,7 @@ export class Simulation implements SimulationInterface {
 
     constructor(height: number, width: number, elementID: string) {
         this.tick = 0;
-        this.tickRate = 500; // default tick rate in milliseconds
+        this.tickRate = 1000; // default tick rate in milliseconds
         this.grid = new Grid(height, width, this, elementID);
         this.running = false;
         this.toBeStopped = false;
@@ -36,6 +36,7 @@ export class Simulation implements SimulationInterface {
             this.grid.runTick(this.tick);
             this.tick++;
             document.getElementById("showTick").innerHTML = (`${this.tick}`);
+            this.grid.cellCount();
         }, this.tickRate);
 
         this.toBeStopped = false;
