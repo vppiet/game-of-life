@@ -19,7 +19,7 @@
     <script type="module">
         import { GameOfLife } from "../js/gameoflife-bundle.mjs";
 
-        const mySimulation = new GameOfLife(100, 100, '#simulationGrid');
+        const mySimulation = new GameOfLife(10, 10, '#simulationGrid');
         mySimulation.initializeGrid().populateGrid();
         mySimulation.start();
         window.mySimulation = mySimulation;
