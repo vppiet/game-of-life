@@ -9,8 +9,7 @@ export class Grid implements GridInterface {
     public rows: Array<GridRow>;
     public readonly width: number;
     public readonly parentSimulation: Simulation;
-    public cellStats: {alive: number, dead: number};
-    public readonly cell: Cell;
+    public cellStats: {alive: number, dead: number, totalPop: number};
 
     constructor(height: number, width: number, parentSimulation: Simulation, elementID: string) {
         this.element = document.querySelector(elementID);
@@ -18,7 +17,7 @@ export class Grid implements GridInterface {
         this.rows = new Array<GridRow>();
         this.width = width;
         this.parentSimulation = parentSimulation;
-        this.cellStats = {alive: 0, dead: 0};
+        this.cellStats = {alive: 0, dead: 0, totalPop: 0};
     }
 
     public initialize() {
@@ -146,6 +145,14 @@ export class Grid implements GridInterface {
                 cell.tickStates[nextStateIndex] = cell.tickStates[currentStateIndex];
             }
         }
+
+        document.getElementById("showAlive").innerHTML = (`${this.cellStats.alive}`);
+        document.getElementById("showDead").innerHTML = (`${this.cellStats.dead}`);
+    }
+
+    public showPopulation() {
+        this.cellStats.totalPop = this.cellStats.alive + this.cellStats.dead;
+        document.getElementById("showPop").innerHTML = (`${this.cellStats.totalPop}`);
     }
 
     // Algorithm for checking number of dead or alive cells:
@@ -159,7 +166,7 @@ export class Grid implements GridInterface {
     6. display it in html
     */
 
-    public cellCount() {
+    /* public cellCount() {
         this.cellStats.alive = 0;
         let cellAlive = 0;
         let count = 0;
@@ -172,6 +179,6 @@ export class Grid implements GridInterface {
         }
         //this.cellStats.alive = count;
         console.log("COUNT ----->> " + count);
-    }
+    } */
 
 }

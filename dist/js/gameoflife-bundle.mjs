@@ -67,8 +67,7 @@ class Cell {
     methodCalls++;
     console.log("White Cells: " + methodCalls);
 
-    this.element.style.backgroundColor = "red"; */ 
-//# sourceMappingURL=Cell.js.map
+    this.element.style.backgroundColor = "red"; */
 
 class GridRow {
     constructor(width, id, parentGrid) {
@@ -104,7 +103,6 @@ class GridRow {
         return this;
     }
 }
-//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -113,7 +111,7 @@ class Grid {
         this.rows = new Array();
         this.width = width;
         this.parentSimulation = parentSimulation;
-        this.cellStats = { alive: 0, dead: 0 };
+        this.cellStats = { alive: 0, dead: 0, totalPop: 0 };
     }
     initialize() {
         // Style element to a grid based on given width & height.
@@ -220,32 +218,14 @@ class Grid {
                 cell.tickStates[nextStateIndex] = cell.tickStates[currentStateIndex];
             }
         }
+        document.getElementById("showAlive").innerHTML = (`${this.cellStats.alive}`);
+        document.getElementById("showDead").innerHTML = (`${this.cellStats.dead}`);
     }
-    // Algorithm for checking number of dead or alive cells:
-    /*
-    1. declare cellStats object
-    2. create the function and variables
-    3. check the cells' matrix/grid
-    4. count the total number of alive or dead elements for every tick state
-    --> for each row and column, check to see if cell state is true/false
-    5. store and return this value in the variable
-    6. display it in html
-    */
-    cellCount() {
-        this.cellStats.alive = 0;
-        let count = 0;
-        for (let x = 0; x < this.height; x++) {
-            for (let y = 0; y < this.width; y++) {
-                if (this.cell.tickStates[0]) {
-                    count++;
-                }
-            }
-        }
-        //this.cellStats.alive = count;
-        console.log("COUNT ----->> " + count);
+    showPopulation() {
+        this.cellStats.totalPop = this.cellStats.alive + this.cellStats.dead;
+        document.getElementById("showPop").innerHTML = (`${this.cellStats.totalPop}`);
     }
 }
-//# sourceMappingURL=Grid.js.map
 
 class Simulation {
     constructor(height, width, elementID) {
@@ -308,6 +288,5 @@ const GameOfLife = Simulation;
 //     interface Window { [key: string]: any; }
 // }
 // window.GameOfLife = Simulation;
-//# sourceMappingURL=Index.js.map
 
 export { GameOfLife };
