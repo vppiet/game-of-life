@@ -145,14 +145,13 @@ export class Grid implements GridInterface {
                 cell.tickStates[nextStateIndex] = cell.tickStates[currentStateIndex];
             }
         }
-
-        document.getElementById("showAlive").innerHTML = (`${this.cellStats.alive}`);
-        document.getElementById("showDead").innerHTML = (`${this.cellStats.dead}`);
     }
-
+    
     public showPopulation() {
         this.cellStats.totalPop = this.cellStats.alive + this.cellStats.dead;
         document.getElementById("showPop").innerHTML = (`${this.cellStats.totalPop}`);
+        document.getElementById("showDead").innerHTML = (`${this.cellStats.dead}`);
+        document.getElementById("showAlive").innerHTML = (`${this.cellStats.alive}`);
     }
 
     // Algorithm for checking number of dead or alive cells:
