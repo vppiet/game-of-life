@@ -28,7 +28,7 @@ export class Grid implements GridInterface {
             display: grid;
             grid-template-columns: repeat(${this.width}, 1fr);
             grid-template-rows: repeat(${this.height}, 1fr);
-            height: ${this.element.clientWidth}px
+            height: ${this.element.clientWidth * (this.height/this.width)}px
         `;
         this.element.setAttribute('style', cssGridText);
         this._initializeRows();
