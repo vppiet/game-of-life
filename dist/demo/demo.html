@@ -27,7 +27,11 @@
     <script>
         function getUserInput() {
             let input = document.getElementById("userInput").value;
-            return input;
+            if (input <= 100) {
+                return input;
+            } else {
+                alert("Warning. Entering a large grid will impact performance. Stay below 100.")
+            }
         }
     </script>
 
