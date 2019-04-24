@@ -62,8 +62,7 @@ class Cell {
     methodCalls++;
     console.log("White Cells: " + methodCalls);
 
-    this.element.style.backgroundColor = "red"; */ 
-//# sourceMappingURL=Cell.js.map
+    this.element.style.backgroundColor = "red"; */
 
 class GridRow {
     constructor(width, id, parentGrid) {
@@ -99,7 +98,6 @@ class GridRow {
         return this;
     }
 }
-//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -274,7 +272,6 @@ class Simulation {
         return this.tick;
     }
 }
-//# sourceMappingURL=Simulation.js.map
 
 /*
 Title:
@@ -299,6 +296,5 @@ const GameOfLife = Simulation;
 //     interface Window { [key: string]: any; }
 // }
 // window.GameOfLife = Simulation;
-//# sourceMappingURL=Index.js.map
 
 export { GameOfLife };
