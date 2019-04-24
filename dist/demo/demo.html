@@ -21,8 +21,11 @@
 
         const mySimulation = new GameOfLife(10, 10, '#simulationGrid');
         mySimulation.initializeGrid().populateGrid();
-        mySimulation.start();
+        //mySimulation.start();
         window.mySimulation = mySimulation;
     </script>
+    <div id="buttons">
+        <button id="start" onclick="mySimulation.start()">Start</button>
+    </div>
 </body>
 </html>
