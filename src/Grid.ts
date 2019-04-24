@@ -128,6 +128,8 @@ export class Grid implements GridInterface {
                 if (cell.tickStates[currentStateIndex] === true && (liveNeighborCount < 2 || liveNeighborCount > 3)) {
                     cell.die();
                     cell.tickStates[nextStateIndex] = false;
+                    this.cellStats.alive--;
+                    this.cellStats.dead++;
                     continue;
                 }
 
@@ -135,6 +137,8 @@ export class Grid implements GridInterface {
                 if (cell.tickStates[currentStateIndex] === false && liveNeighborCount === 3) {
                     cell.emerge();
                     cell.tickStates[nextStateIndex] = true;
+                    this.cellStats.dead--;
+                    this.cellStats.alive++;
                     continue;
                 }
 

@@ -5,13 +5,16 @@ class Cell {
         this.coordinateY = coordinateY;
         this.neighbors = new Array();
         this.parentGridRow = parentGridRow;
-        this.tickStates = [false, undefined];
+        this.tickStates = [undefined, undefined];
     }
     initialize() {
         // Create DOM element
         this.element = document.createElement('div');
         // Set ID
         this.element.setAttribute('id', `cell-${this.coordinateY}-${this.coordinateX}`);
+        // Set default first state to dead
+        this.tickStates[0] = false;
+        this.parentGridRow.parentGrid.cellStats.dead++;
         // Set default background-color to black
         this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 1.0);');
         this.parentGridRow.parentGrid.element.insertAdjacentElement('beforeend', this.element);
@@ -26,6 +29,8 @@ class Cell {
         // live initial state.
         if (this.tickStates[0]) {
             this._turnWhite();
+            this.parentGridRow.parentGrid.cellStats.dead--;
+            this.parentGridRow.parentGrid.cellStats.alive++;
         }
         return this;
     }
@@ -62,7 +67,8 @@ class Cell {
     methodCalls++;
     console.log("White Cells: " + methodCalls);
 
-    this.element.style.backgroundColor = "red"; */
+    this.element.style.backgroundColor = "red"; */ 
+//# sourceMappingURL=Cell.js.map
 
 class GridRow {
     constructor(width, id, parentGrid) {
@@ -98,6 +104,7 @@ class GridRow {
         return this;
     }
 }
+//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -197,12 +204,16 @@ class Grid {
                 if (cell.tickStates[currentStateIndex] === true && (liveNeighborCount < 2 || liveNeighborCount > 3)) {
                     cell.die();
                     cell.tickStates[nextStateIndex] = false;
+                    this.cellStats.alive--;
+                    this.cellStats.dead++;
                     continue;
                 }
                 // If cell is dead and has exactly three live neighbors
                 if (cell.tickStates[currentStateIndex] === false && liveNeighborCount === 3) {
                     cell.emerge();
                     cell.tickStates[nextStateIndex] = true;
+                    this.cellStats.dead--;
+                    this.cellStats.alive++;
                     continue;
                 }
                 // If no changes are made, pass current state to next tick
@@ -234,6 +245,7 @@ class Grid {
         console.log("COUNT ----->> " + count);
     }
 }
+//# sourceMappingURL=Grid.js.map
 
 class Simulation {
     constructor(height, width, elementID) {
@@ -260,7 +272,7 @@ class Simulation {
             this.grid.runTick(this.tick);
             this.tick++;
             document.getElementById("showTick").innerHTML = (`${this.tick}`);
-            this.grid.cellCount();
+            console.log(this.grid.cellStats);
         }, this.tickRate);
         this.toBeStopped = false;
         return this.tick; // return latest tick
@@ -296,5 +308,6 @@ const GameOfLife = Simulation;
 //     interface Window { [key: string]: any; }
 // }
 // window.GameOfLife = Simulation;
+//# sourceMappingURL=Index.js.map
 
 export { GameOfLife };

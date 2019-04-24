@@ -15,7 +15,7 @@ export class Cell implements CellInterface {
         this.coordinateY = coordinateY;
         this.neighbors = new Array<Cell>();
         this.parentGridRow = parentGridRow;
-        this.tickStates = [false, undefined];
+        this.tickStates = [undefined, undefined];
     }
 
     public initialize() {
@@ -24,6 +24,10 @@ export class Cell implements CellInterface {
 
         // Set ID
         this.element.setAttribute('id', `cell-${this.coordinateY}-${this.coordinateX}`);
+
+        // Set default first state to dead
+        this.tickStates[0] = false;
+        this.parentGridRow.parentGrid.cellStats.dead++;
 
         // Set default background-color to black
         this.element.setAttribute('style', 'background-color: rgba(0, 0, 0, 1.0);');
@@ -41,6 +45,8 @@ export class Cell implements CellInterface {
         // live initial state.
         if (this.tickStates[0]) {
             this._turnWhite();
+            this.parentGridRow.parentGrid.cellStats.dead--;
+            this.parentGridRow.parentGrid.cellStats.alive++;
         }
         return this;
     }

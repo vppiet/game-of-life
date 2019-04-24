@@ -36,7 +36,7 @@ export class Simulation implements SimulationInterface {
             this.grid.runTick(this.tick);
             this.tick++;
             document.getElementById("showTick").innerHTML = (`${this.tick}`);
-            this.grid.cellCount();
+            console.log(this.grid.cellStats);
         }, this.tickRate);
 
         this.toBeStopped = false;
