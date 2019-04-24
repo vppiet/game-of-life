@@ -14,20 +14,33 @@
 <body>
     <div id="simulationGrid"></div>
 
-    <p>Total cell population: <span id="showPop"></span></p>
-    <p>Current tick: <span id="showTick"></span></p>
-    <p>Cells alive: <span id="showAlive"></span></p>
-    <p>Cells dead: <span id="showDead"></span></p>
+    <div id="cellStatistics">
+        <p>Current tick: <span id="showTick"></span></p>
+        <p>Total cell population: <span id="showPop"></span></p>
+        <p>Cells alive: <span id="showAlive"></span></p>
+        <p>Cells dead: <span id="showDead"></span></p>
+    </div>
+
+    <p style="margin-top: 50px">Set the size of the grid and click reload</p>
+    <input type="number" id="userInput" value="100" min="1" max="100">
+    <button onclick="location.reload()">Reload Grid</button>
+    <script>
+        function getUserInput() {
+            let input = document.getElementById("userInput").value;
+            return input;
+        }
+    </script>
 
     <script type="module">
         import { GameOfLife } from "../js/gameoflife-bundle.mjs";
 
-        const mySimulation = new GameOfLife(10, 10, '#simulationGrid');
+        const mySimulation = new GameOfLife(getUserInput(), getUserInput(), '#simulationGrid');
         mySimulation.initializeGrid().populateGrid();
         //mySimulation.start();
         window.mySimulation = mySimulation;
     </script>
-    <div id="buttons">
+
+    <div id="buttons" style="margin-top: 50px;">
         <button id="start" onclick="mySimulation.start()">Start</button>
     </div>
 </body>

@@ -67,7 +67,8 @@ class Cell {
     methodCalls++;
     console.log("White Cells: " + methodCalls);
 
-    this.element.style.backgroundColor = "red"; */
+    this.element.style.backgroundColor = "red"; */ 
+//# sourceMappingURL=Cell.js.map
 
 class GridRow {
     constructor(width, id, parentGrid) {
@@ -103,6 +104,7 @@ class GridRow {
         return this;
     }
 }
+//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -218,14 +220,15 @@ class Grid {
                 cell.tickStates[nextStateIndex] = cell.tickStates[currentStateIndex];
             }
         }
-        document.getElementById("showAlive").innerHTML = (`${this.cellStats.alive}`);
-        document.getElementById("showDead").innerHTML = (`${this.cellStats.dead}`);
     }
     showPopulation() {
         this.cellStats.totalPop = this.cellStats.alive + this.cellStats.dead;
         document.getElementById("showPop").innerHTML = (`${this.cellStats.totalPop}`);
+        document.getElementById("showDead").innerHTML = (`${this.cellStats.dead}`);
+        document.getElementById("showAlive").innerHTML = (`${this.cellStats.alive}`);
     }
 }
+//# sourceMappingURL=Grid.js.map
 
 class Simulation {
     constructor(height, width, elementID) {
@@ -253,6 +256,7 @@ class Simulation {
             this.tick++;
             document.getElementById("showTick").innerHTML = (`${this.tick}`);
             console.log(this.grid.cellStats);
+            this.grid.showPopulation();
         }, this.tickRate);
         this.toBeStopped = false;
         return this.tick; // return latest tick
@@ -264,6 +268,7 @@ class Simulation {
         return this.tick;
     }
 }
+//# sourceMappingURL=Simulation.js.map
 
 /*
 Title:
@@ -288,5 +293,6 @@ const GameOfLife = Simulation;
 //     interface Window { [key: string]: any; }
 // }
 // window.GameOfLife = Simulation;
+//# sourceMappingURL=Index.js.map
 
 export { GameOfLife };
