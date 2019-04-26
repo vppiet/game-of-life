@@ -10,33 +10,35 @@ export class Simulation implements SimulationInterface {
 
     constructor(height: number, width: number, elementID: string) {
         this.tick = 0;
-        this.tickRate = 1000; // default tick rate in milliseconds
+        this.tickRate = 100; // default tick rate in milliseconds
         this.grid = new Grid(height, width, this, elementID);
         this.running = false;
         this.toBeStopped = false;
     }
 
-    public initializeGrid() {
+    public initializeGrid(): this {
         this.grid.initialize();
         return this;
     }
 
-    public populateGrid() {
+    public populateGrid(): this {
         this.grid.populate();
         return this;
     }
 
+    public showTick(): void {
+        document.getElementById("showTick").innerHTML = this.tick.toString();
+    }
+
     // Starts the simulation.
     // TO-DO: Stopping the main loop after current tick process.
-    public start() {
+    public start(): number {
         this.running = true;
 
         window.setInterval(() => {
-            console.log(`Tick: ${this.tick}`);
+            this.showTick();
             this.grid.runTick(this.tick);
             this.tick++;
-            document.getElementById("showTick").innerHTML = (`${this.tick}`);
-            console.log(this.grid.cellStats);
             this.grid.showPopulation();
         }, this.tickRate);
 
@@ -46,7 +48,7 @@ export class Simulation implements SimulationInterface {
 
     // Tell simulation to be stopped after tick processing has completed.
     // TO-DO: Implement stoppage function to main loop. Consider using events.
-    public stop() {
+    public stop(): number {
         this.toBeStopped = true;
         return this.tick;
     }
