@@ -39,7 +39,8 @@
         import { GameOfLife } from "../js/gameoflife-bundle.mjs";
 
         const mySimulation = new GameOfLife(getUserInput(), getUserInput(), '#simulationGrid');
-        mySimulation.initializeGrid().populateGrid();
+        mySimulation.initializeGrid().populateGrid().showTick();
+        mySimulation.grid.showPopulation();
         //mySimulation.start();
         window.mySimulation = mySimulation;
     </script>

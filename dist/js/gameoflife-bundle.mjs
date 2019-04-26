@@ -104,7 +104,6 @@ class GridRow {
         return this;
     }
 }
-//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -223,9 +222,9 @@ class Grid {
     }
     showPopulation() {
         this.cellStats.totalPop = this.cellStats.alive + this.cellStats.dead;
-        document.getElementById("showPop").innerHTML = (`${this.cellStats.totalPop}`);
-        document.getElementById("showDead").innerHTML = (`${this.cellStats.dead}`);
-        document.getElementById("showAlive").innerHTML = (`${this.cellStats.alive}`);
+        document.getElementById("showPop").innerHTML = this.cellStats.totalPop.toString();
+        document.getElementById("showDead").innerHTML = this.cellStats.dead.toString();
+        document.getElementById("showAlive").innerHTML = this.cellStats.alive.toString();
     }
 }
 //# sourceMappingURL=Grid.js.map
@@ -233,7 +232,7 @@ class Grid {
 class Simulation {
     constructor(height, width, elementID) {
         this.tick = 0;
-        this.tickRate = 1000; // default tick rate in milliseconds
+        this.tickRate = 100; // default tick rate in milliseconds
         this.grid = new Grid(height, width, this, elementID);
         this.running = false;
         this.toBeStopped = false;
@@ -246,16 +245,17 @@ class Simulation {
         this.grid.populate();
         return this;
     }
+    showTick() {
+        document.getElementById("showTick").innerHTML = this.tick.toString();
+    }
     // Starts the simulation.
     // TO-DO: Stopping the main loop after current tick process.
     start() {
         this.running = true;
         window.setInterval(() => {
-            console.log(`Tick: ${this.tick}`);
+            this.showTick();
             this.grid.runTick(this.tick);
             this.tick++;
-            document.getElementById("showTick").innerHTML = (`${this.tick}`);
-            console.log(this.grid.cellStats);
             this.grid.showPopulation();
         }, this.tickRate);
         this.toBeStopped = false;
