@@ -149,9 +149,9 @@ export class Grid implements GridInterface {
     
     public showPopulation() {
         this.cellStats.totalPop = this.cellStats.alive + this.cellStats.dead;
-        document.getElementById("showPop").innerHTML = (`${this.cellStats.totalPop}`);
-        document.getElementById("showDead").innerHTML = (`${this.cellStats.dead}`);
-        document.getElementById("showAlive").innerHTML = (`${this.cellStats.alive}`);
+        document.getElementById("showPop").innerHTML = this.cellStats.totalPop.toString();
+        document.getElementById("showDead").innerHTML = this.cellStats.dead.toString();
+        document.getElementById("showAlive").innerHTML = this.cellStats.alive.toString();
     }
 
     // Algorithm for checking number of dead or alive cells:
