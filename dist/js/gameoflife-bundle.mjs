@@ -1,3 +1,33 @@
+class User {
+    constructor() {
+        // this.cellColor = "white";
+    }
+    // Method allows user to change the lengths of the grid
+    getGridSize() {
+    }
+    // Method allows user to change the color of the cells using _turnWhite() from Cell
+    getCellColor() {
+        let checkedValue = this.getRadioValue("cellColor");
+        this.cellColor = checkedValue;
+        return this.cellColor;
+    }
+    // Get the value of checked radio button
+    getRadioValue(name) {
+        let radio = document.getElementsByName(name), i;
+        let radioDefault = "white";
+        for (i = 0; i < radio.length; i++) {
+            if (radio[i].checked) {
+                return radio[i].value;
+            }
+        }
+        return radioDefault;
+    }
+    // Method allows user to set the initial cell population using populate() from GridRow
+    getInitialPop() {
+    }
+}
+//# sourceMappingURL=User.js.map
+
 class Cell {
     constructor(coordinateX, coordinateY, parentGridRow) {
         this.element = undefined;
@@ -6,6 +36,7 @@ class Cell {
         this.neighbors = new Array();
         this.parentGridRow = parentGridRow;
         this.tickStates = [undefined, undefined];
+        this.user = new User();
     }
     initialize() {
         // Create DOM element
@@ -35,7 +66,8 @@ class Cell {
         return this;
     }
     _turnWhite() {
-        this.element.setAttribute('style', 'background-color: rgba(256, 256, 256, 1.0);');
+        // this.element.setAttribute('style', 'background-color: rgba(256, 256, 256, 1.0);');
+        this.element.style.backgroundColor = this.user.getCellColor();
         return this;
     }
     _turnBlack() {
