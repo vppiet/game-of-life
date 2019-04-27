@@ -21,24 +21,36 @@
         <p>Cells dead: <span id="showDead"></span></p>
     </div>
 
-    <p style="margin-top: 50px">Set the size of the grid and click reload</p>
-    <input type="number" id="userInput" value="100" min="1" max="100">
-    <button onclick="location.reload()">Reload Grid</button>
-    <script>
-        function getUserInput() {
-            let input = document.getElementById("userInput").value;
-            if (input <= 100) {
-                return input;
-            } else {
-                alert("Warning. Entering a large grid will impact performance. Stay below 100.")
+    <div id="settings">
+        <p style="margin-top: 50px; margin-bottom: 25px;"><b>Settings:</b></p>
+        <span>Grid Length Size </span>
+        <input type="number" id="userInput" value="100" min="1" max="100">
+        
+        <script>
+            function getGridSize() {
+                let input = document.getElementById("userInput").value;
+                if (input <= 100) {
+                    return input;
+                } else {
+                    alert("Warning. Entering a large grid will impact performance. Stay below 100.")
+                }
             }
-        }
-    </script>
+            </script>
 
+        <form>
+            <p style="display: inline-block;">Cell Color </p>
+            <input type="radio" name="cellColor" value="white"> White
+            <input type="radio" name="cellColor" value="red"> Red
+            <input type="radio" name="cellColor" value="blue"> Blue
+        </form>
+        
+        <button style="margin-top: 25px;" onclick="location.reload()">Reload Grid</button>
+    </div>
+    
     <script type="module">
         import { GameOfLife } from "../js/gameoflife-bundle.mjs";
 
-        const mySimulation = new GameOfLife(getUserInput(), getUserInput(), '#simulationGrid');
+        const mySimulation = new GameOfLife(getGridSize(), getGridSize(), '#simulationGrid');
         mySimulation.initializeGrid().populateGrid().showTick();
         mySimulation.grid.showPopulation();
         //mySimulation.start();
