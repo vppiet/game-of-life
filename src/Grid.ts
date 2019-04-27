@@ -1,7 +1,6 @@
 import { GridInterface } from './interfaces/GridInterface';
 import { GridRow } from './GridRow';
 import { Simulation } from './Simulation';
-import { Cell } from './Cell';
 
 export class Grid implements GridInterface {
     public element: HTMLElement;
