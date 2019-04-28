@@ -16,6 +16,21 @@ export class Simulation implements SimulationInterface {
         this.toBeStopped = false;
     }
 
+    public addButtons(): this {
+        let startBtn = document.createElement("button");
+        startBtn.innerHTML = "Start";
+        startBtn.setAttribute("id", "start");
+        startBtn.addEventListener("click", this.start.bind(this));
+        document.getElementById("buttons").appendChild(startBtn);
+        
+        let stopBtn = document.createElement("button");
+        stopBtn.innerHTML = "Stop";
+        stopBtn.setAttribute("id", "stop");
+        document.getElementById("buttons").appendChild(stopBtn);
+
+        return this;
+    }
+
     public initializeGrid(): this {
         this.grid.initialize();
         return this;
@@ -26,8 +41,9 @@ export class Simulation implements SimulationInterface {
         return this;
     }
 
-    public showTick(): void {
+    public showTick(): this {
         document.getElementById("showTick").innerHTML = this.tick.toString();
+        return this;
     }
 
     // Starts the simulation.

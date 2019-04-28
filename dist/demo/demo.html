@@ -21,6 +21,10 @@
         <p>Cells dead: <span id="showDead"></span></p>
     </div>
 
+    <div id="buttons">
+
+    </div>
+
     <div id="settings">
         <p style="margin-top: 50px; margin-bottom: 25px;"><b>Settings:</b></p>
         <span>Grid Length Size </span>
@@ -51,14 +55,11 @@
         import { GameOfLife } from "../js/gameoflife-bundle.mjs";
 
         const mySimulation = new GameOfLife(getGridSize(), getGridSize(), '#simulationGrid');
-        mySimulation.initializeGrid().populateGrid().showTick();
+        mySimulation.initializeGrid().populateGrid().addButtons().showTick();
         mySimulation.grid.showPopulation();
-        //mySimulation.start();
         window.mySimulation = mySimulation;
     </script>
 
-    <div id="buttons" style="margin-top: 50px;">
-        <button id="start" onclick="mySimulation.start()">Start</button>
-    </div>
+    
 </body>
 </html>

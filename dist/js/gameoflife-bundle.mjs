@@ -136,6 +136,7 @@ class GridRow {
         return this;
     }
 }
+//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -269,6 +270,18 @@ class Simulation {
         this.running = false;
         this.toBeStopped = false;
     }
+    addButtons() {
+        let startBtn = document.createElement("button");
+        startBtn.innerHTML = "Start";
+        startBtn.setAttribute("id", "start");
+        startBtn.addEventListener("click", this.start.bind(this));
+        document.getElementById("buttons").appendChild(startBtn);
+        let stopBtn = document.createElement("button");
+        stopBtn.innerHTML = "Stop";
+        stopBtn.setAttribute("id", "stop");
+        document.getElementById("buttons").appendChild(stopBtn);
+        return this;
+    }
     initializeGrid() {
         this.grid.initialize();
         return this;
@@ -279,6 +292,7 @@ class Simulation {
     }
     showTick() {
         document.getElementById("showTick").innerHTML = this.tick.toString();
+        return this;
     }
     // Starts the simulation.
     // TO-DO: Stopping the main loop after current tick process.
@@ -300,7 +314,6 @@ class Simulation {
         return this.tick;
     }
 }
-//# sourceMappingURL=Simulation.js.map
 
 /*
 Title:
