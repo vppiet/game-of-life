@@ -328,6 +328,7 @@ class Simulation {
         return this.tick;
     }
 }
+//# sourceMappingURL=Simulation.js.map
 
 /*
 Title:
