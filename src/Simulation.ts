@@ -52,6 +52,7 @@ export class Simulation implements SimulationInterface {
     // TO-DO: Stopping the main loop after current tick process.
     public start(): void {
         const startBtn = document.getElementById('start');
+        startBtn.innerHTML = "Resume";
         startBtn.setAttribute('disabled', '');
 
         const stopBtn = document.getElementById('stop');
