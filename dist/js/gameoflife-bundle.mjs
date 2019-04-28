@@ -279,6 +279,8 @@ class Simulation {
         let stopBtn = document.createElement("button");
         stopBtn.innerHTML = "Stop";
         stopBtn.setAttribute("id", "stop");
+        stopBtn.setAttribute("disabled", "");
+        stopBtn.addEventListener("click", this.stop.bind(this));
         document.getElementById("buttons").appendChild(stopBtn);
         return this;
     }
@@ -297,15 +299,27 @@ class Simulation {
     // Starts the simulation.
     // TO-DO: Stopping the main loop after current tick process.
     start() {
+        const startBtn = document.getElementById('start');
+        startBtn.setAttribute('disabled', '');
+        const stopBtn = document.getElementById('stop');
+        stopBtn.removeAttribute('disabled');
         this.running = true;
-        window.setInterval(() => {
-            this.showTick();
-            this.grid.runTick(this.tick);
-            this.tick++;
-            this.grid.showPopulation();
+        const intervalID = window.setInterval(() => {
+            if (!this.toBeStopped) {
+                this.showTick();
+                this.grid.runTick(this.tick);
+                this.tick++;
+                this.grid.showPopulation();
+            }
+            else {
+                window.clearInterval(intervalID);
+                startBtn.removeAttribute('disabled');
+                stopBtn.setAttribute('disabled', '');
+                this.toBeStopped = false;
+                this.running = false;
+            }
         }, this.tickRate);
-        this.toBeStopped = false;
-        return this.tick; // return latest tick
+        return;
     }
     // Tell simulation to be stopped after tick processing has completed.
     // TO-DO: Implement stoppage function to main loop. Consider using events.

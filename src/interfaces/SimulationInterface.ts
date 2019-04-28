@@ -9,6 +9,6 @@ export interface SimulationInterface {
 
     initializeGrid(): this;
     populateGrid(): this;
-    start(): number;
+    start(): void;
     stop(): number;
 }
