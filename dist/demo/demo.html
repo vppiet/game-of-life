@@ -19,16 +19,12 @@
             <div id="buttons"></div>
             <div id="settings">
                 <p style="margin-top: 50px; margin-bottom: 25px;"><b>Settings:</b></p>
-                <span>Grid Length Size </span>
-                <input type="number" id="userInput" value="100" min="1" max="100">
+                <span>Grid Size (max 100x100):</span>
+                <input type="number" id="userInput" value="75" min="1" max="100">
                 <script>
                     function getGridSize() {
                         let input = document.getElementById("userInput").value;
-                        if (input <= 100) {
-                            return input;
-                        } else {
-                            alert("Warning. Entering a large grid will impact performance. Stay below 100.")
-                        }
+                        return input;
                     }
                     </script>
                 <form>
@@ -37,7 +33,7 @@
                     <input type="radio" name="cellColor" value="red"> Red
                     <input type="radio" name="cellColor" value="blue"> Blue
                 </form>
-                <button style="margin-top: 25px;" onclick="location.reload()">Reload Grid</button>
+                <button id="reloadGrid" style="margin-top: 25px;" onclick="location.reload()">Reload Grid</button>
             </div>
         </div>
     </div>

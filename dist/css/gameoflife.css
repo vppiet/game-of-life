@@ -9,3 +9,7 @@ body {
     float: left;
     margin-right: 1em;
 }
+
+#userInput {
+    width: 4em;
+}
