@@ -300,6 +300,14 @@ class Simulation {
         startBtn.setAttribute('disabled', '');
         const stopBtn = document.getElementById('stop');
         stopBtn.removeAttribute('disabled');
+        const userInputField = document.getElementById('userInput');
+        userInputField.setAttribute('disabled', '');
+        const cellColorRadios = document.querySelectorAll('input[name="cellColor"]');
+        cellColorRadios.forEach((element) => {
+            element.setAttribute('disabled', '');
+        });
+        const reloadGridBtn = document.getElementById('reloadGrid');
+        reloadGridBtn.setAttribute('disabled', '');
         this.running = true;
         const intervalID = window.setInterval(() => {
             if (!this.toBeStopped) {
@@ -312,6 +320,11 @@ class Simulation {
                 window.clearInterval(intervalID);
                 startBtn.removeAttribute('disabled');
                 stopBtn.setAttribute('disabled', '');
+                userInputField.removeAttribute('disabled');
+                cellColorRadios.forEach((element) => {
+                    element.removeAttribute('disabled');
+                });
+                reloadGridBtn.removeAttribute('disabled');
                 this.toBeStopped = false;
                 this.running = false;
             }
