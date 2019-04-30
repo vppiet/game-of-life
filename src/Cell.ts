@@ -1,6 +1,5 @@
 import { CellInterface } from "./interfaces/CellInterface";
 import { GridRow } from "./GridRow";
-import { User } from "./User";
 
 export class Cell implements CellInterface {
     public element: HTMLElement;
@@ -9,7 +8,6 @@ export class Cell implements CellInterface {
     public neighbors: Array<Cell>;
     public readonly parentGridRow: GridRow;
     public tickStates: Array<boolean>;
-    public readonly user: User;
 
     constructor(coordinateX: number, coordinateY: number, parentGridRow: GridRow) {
         this.element = undefined;
@@ -18,7 +16,6 @@ export class Cell implements CellInterface {
         this.neighbors = new Array<Cell>();
         this.parentGridRow = parentGridRow;
         this.tickStates = [undefined, undefined];
-        this.user = new User();
     }
 
     public initialize() {
@@ -56,7 +53,7 @@ export class Cell implements CellInterface {
 
     private _turnWhite() {
         // this.element.setAttribute('style', 'background-color: rgba(256, 256, 256, 1.0);');
-        this.element.style.backgroundColor = this.user.getCellColor();
+        this.element.style.backgroundColor = this.parentGridRow.parentGrid.parentSimulation.user.cellColor;
         return this;
     }
     
@@ -89,6 +86,10 @@ export class Cell implements CellInterface {
     
     public isAlive(index: number) {
         return this.tickStates[index];
+    }
+
+    public removeElement(): void {
+        this.element.remove();
     }
 }
 

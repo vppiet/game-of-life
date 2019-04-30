@@ -4,9 +4,9 @@ import { Simulation } from './Simulation';
 
 export class Grid implements GridInterface {
     public element: HTMLElement;
-    public readonly height: number;
+    public height: number;
     public rows: Array<GridRow>;
-    public readonly width: number;
+    public width: number;
     public readonly parentSimulation: Simulation;
     public cellStats: {alive: number, dead: number, totalPop: number};
 
@@ -19,7 +19,7 @@ export class Grid implements GridInterface {
         this.cellStats = {alive: 0, dead: 0, totalPop: 0};
     }
 
-    public initialize() {
+    public initialize(): this {
         // Style element to a grid based on given width & height.
         // Set DOM height to same as DOM width for now.
         const cssGridText = `
@@ -39,7 +39,7 @@ export class Grid implements GridInterface {
     // to know when dealing with edge cases.
     // Neighbor cell listing will be used when counting alive neighbors
     // over ticks.
-    private _setCellNeighbors() {
+    private _setCellNeighbors(): void {
         for (let row of this.rows) {
             for (let cell of row.cells) {
                 const cellCoordX = cell.coordinateX;
@@ -94,7 +94,7 @@ export class Grid implements GridInterface {
         }
     }
 
-   private _initializeRows() {
+   private _initializeRows(): this {
        for (let y = 0; y < this.height; y++) {
            let newRow = new GridRow(this.width, y, this);
            newRow.initialize();
@@ -105,7 +105,7 @@ export class Grid implements GridInterface {
    }
 
    // Populate rows.
-    public populate() {
+    public populate(): this {
         for (let row of this.rows) {
             row.populate();
         }
@@ -114,7 +114,7 @@ export class Grid implements GridInterface {
     }
 
     // Run tick.
-    public runTick(tick: number) {
+    public runTick(tick: number): void {
         const currentStateIndex = tick % 2;
         const nextStateIndex = Math.abs(currentStateIndex - 1);
 
@@ -146,7 +146,7 @@ export class Grid implements GridInterface {
         }
     }
     
-    public showPopulation() {
+    public showPopulation(): void {
         this.cellStats.totalPop = this.cellStats.alive + this.cellStats.dead;
         document.getElementById("showPop").innerHTML = this.cellStats.totalPop.toString();
         document.getElementById("showDead").innerHTML = this.cellStats.dead.toString();
@@ -179,4 +179,10 @@ export class Grid implements GridInterface {
         console.log("COUNT ----->> " + count);
     } */
 
+    public removeAllRows(): void {
+        while (this.rows.length > 0) {
+            const row = this.rows.pop();
+            row.removeAllCells();
+        }
+    }
 }

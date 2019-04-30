@@ -15,7 +15,7 @@ export class GridRow implements GridRowInterface {
         this.width = width;
     }
 
-    initialize() {
+    public initialize(): this {
         for (let x = 0; x < this.width; x++) {
             const newCell = new Cell(x, this.id, this);
             newCell.initialize();
@@ -25,7 +25,7 @@ export class GridRow implements GridRowInterface {
         return this;
     }
 
-    populate() {
+    public populate(): this {
         // Populate cells with random states (for now)
         /* for (let cell of this.cells) {
             const randomState = true ? Math.round(Math.random()) === 1 : false;
@@ -43,5 +43,12 @@ export class GridRow implements GridRowInterface {
         }
 
         return this;
+    }
+
+    public removeAllCells(): void {
+        while (this.cells.length > 0) {
+            const cell = this.cells.pop();
+            cell.removeElement();
+        }
     }
 }

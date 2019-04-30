@@ -9,8 +9,9 @@ export class User {
     }
 
     // Method allows user to change the lengths of the grid
-    public getGridSize() {
-
+    public getGridSize(): number {
+        const input = document.getElementById("userInput") as HTMLInputElement;
+        return parseInt(input.value);
     }
 
     // Method allows user to change the color of the cells using _turnWhite() from Cell

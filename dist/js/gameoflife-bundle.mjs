@@ -1,32 +1,3 @@
-class User {
-    constructor() {
-        // this.cellColor = "white";
-    }
-    // Method allows user to change the lengths of the grid
-    getGridSize() {
-    }
-    // Method allows user to change the color of the cells using _turnWhite() from Cell
-    getCellColor() {
-        let checkedValue = this.getRadioValue("cellColor");
-        this.cellColor = checkedValue;
-        return this.cellColor;
-    }
-    // Get the value of checked radio button
-    getRadioValue(name) {
-        let radio = document.getElementsByName(name), i;
-        let radioDefault = "white";
-        for (i = 0; i < radio.length; i++) {
-            if (radio[i].checked) {
-                return radio[i].value;
-            }
-        }
-        return radioDefault;
-    }
-    // Method allows user to set the initial cell population using populate() from GridRow
-    getInitialPop() {
-    }
-}
-
 class Cell {
     constructor(coordinateX, coordinateY, parentGridRow) {
         this.element = undefined;
@@ -35,7 +6,6 @@ class Cell {
         this.neighbors = new Array();
         this.parentGridRow = parentGridRow;
         this.tickStates = [undefined, undefined];
-        this.user = new User();
     }
     initialize() {
         // Create DOM element
@@ -66,7 +36,7 @@ class Cell {
     }
     _turnWhite() {
         // this.element.setAttribute('style', 'background-color: rgba(256, 256, 256, 1.0);');
-        this.element.style.backgroundColor = this.user.getCellColor();
+        this.element.style.backgroundColor = this.parentGridRow.parentGrid.parentSimulation.user.cellColor;
         return this;
     }
     _turnBlack() {
@@ -93,12 +63,16 @@ class Cell {
     isAlive(index) {
         return this.tickStates[index];
     }
+    removeElement() {
+        this.element.remove();
+    }
 }
 /* let methodCalls = 0;
     methodCalls++;
     console.log("White Cells: " + methodCalls);
 
-    this.element.style.backgroundColor = "red"; */
+    this.element.style.backgroundColor = "red"; */ 
+//# sourceMappingURL=Cell.js.map
 
 class GridRow {
     constructor(width, id, parentGrid) {
@@ -133,7 +107,14 @@ class GridRow {
         }
         return this;
     }
+    removeAllCells() {
+        while (this.cells.length > 0) {
+            const cell = this.cells.pop();
+            cell.removeElement();
+        }
+    }
 }
+//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -256,7 +237,70 @@ class Grid {
         document.getElementById("showDead").innerHTML = this.cellStats.dead.toString();
         document.getElementById("showAlive").innerHTML = this.cellStats.alive.toString();
     }
+    // Algorithm for checking number of dead or alive cells:
+    /*
+    1. declare cellStats object
+    2. create the function and variables
+    3. check the cells' matrix/grid
+    4. count the total number of alive or dead elements for every tick state
+    --> for each row and column, check to see if cell state is true/false
+    5. store and return this value in the variable
+    6. display it in html
+    */
+    /* public cellCount() {
+        this.cellStats.alive = 0;
+        let cellAlive = 0;
+        let count = 0;
+        for (let x = 0; x < this.height; x++) {
+            for (let y = 0; y < this.width; y++) {
+                if (this.cell.tickStates[0]) {
+                    count++;
+                }
+            }
+        }
+        //this.cellStats.alive = count;
+        console.log("COUNT ----->> " + count);
+    } */
+    removeAllRows() {
+        while (this.rows.length > 0) {
+            const row = this.rows.pop();
+            row.removeAllCells();
+        }
+    }
 }
+//# sourceMappingURL=Grid.js.map
+
+class User {
+    constructor() {
+        // this.cellColor = "white";
+    }
+    // Method allows user to change the lengths of the grid
+    getGridSize() {
+        const input = document.getElementById("userInput");
+        return parseInt(input.value);
+    }
+    // Method allows user to change the color of the cells using _turnWhite() from Cell
+    getCellColor() {
+        let checkedValue = this.getRadioValue("cellColor");
+        this.cellColor = checkedValue;
+        return this.cellColor;
+    }
+    // Get the value of checked radio button
+    getRadioValue(name) {
+        let radio = document.getElementsByName(name), i;
+        let radioDefault = "white";
+        for (i = 0; i < radio.length; i++) {
+            if (radio[i].checked) {
+                return radio[i].value;
+            }
+        }
+        return radioDefault;
+    }
+    // Method allows user to set the initial cell population using populate() from GridRow
+    getInitialPop() {
+    }
+}
+//# sourceMappingURL=User.js.map
 
 class Simulation {
     constructor(height, width, elementID) {
@@ -265,6 +309,8 @@ class Simulation {
         this.grid = new Grid(height, width, this, elementID);
         this.running = false;
         this.toBeStopped = false;
+        this.user = new User();
+        this.user.cellColor = this.user.getCellColor();
     }
     addButtons() {
         let startBtn = document.createElement("button");
@@ -293,7 +339,6 @@ class Simulation {
         return this;
     }
     // Starts the simulation.
-    // TO-DO: Stopping the main loop after current tick process.
     start() {
         const startBtn = document.getElementById('start');
         startBtn.innerHTML = "Resume";
@@ -329,13 +374,47 @@ class Simulation {
                 this.running = false;
             }
         }, this.tickRate);
-        return;
+        return this.tick;
     }
     // Tell simulation to be stopped after tick processing has completed.
-    // TO-DO: Implement stoppage function to main loop. Consider using events.
     stop() {
         this.toBeStopped = true;
         return this.tick;
+    }
+    reload(height, width, color) {
+        // Reset tick
+        this.tick = 0;
+        // Clear statistics
+        this.grid.cellStats = {
+            alive: 0,
+            dead: 0,
+            totalPop: 0
+        };
+        // Remove all rows with cells and their HTML elements
+        this.grid.removeAllRows();
+        // Set new height and width
+        this.grid.height = height;
+        this.grid.width = width;
+        // Re-initialize and populate grid
+        this.initializeGrid();
+        this.populateGrid();
+        // Re-initialize UI
+        const startBtn = document.getElementById('start');
+        startBtn.innerHTML = 'Start';
+        this.showTick();
+        this.grid.showPopulation();
+    }
+    getSettings() {
+        const cellColor = this.user.getCellColor();
+        this.user.cellColor = cellColor;
+        const height = this.user.getGridSize();
+        const width = height;
+        this.reload(height, width, cellColor);
+    }
+    attachReloadEventHandler() {
+        const reloadBtn = document.getElementById('reloadGrid');
+        reloadBtn.addEventListener('click', this.getSettings.bind(this));
+        return this;
     }
 }
 
@@ -362,5 +441,6 @@ const GameOfLife = Simulation;
 //     interface Window { [key: string]: any; }
 // }
 // window.GameOfLife = Simulation;
+//# sourceMappingURL=Index.js.map
 
 export { GameOfLife };

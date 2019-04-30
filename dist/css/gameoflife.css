@@ -21,11 +21,16 @@ body {
 
 #simulationGrid {
     border: 1px solid rgb(0, 0, 0);
-    width:  400px;
-    float: left;
+    width:  500px;
     margin-right: 1em;
 }
 
 #userInput {
     width: 4em;
+}
+
+@media only screen and (max-width: 1000px) {
+    #simulationUI {
+        flex-direction: column;
+    }
 }

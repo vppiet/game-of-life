@@ -1,5 +1,6 @@
 import { SimulationInterface } from './interfaces/SimulationInterface';
 import { Grid } from './Grid';
+import { User } from './User';
 
 export class Simulation implements SimulationInterface {
     public readonly tickRate: number;
@@ -7,6 +8,7 @@ export class Simulation implements SimulationInterface {
     public readonly grid: Grid;
     public running: boolean;
     public toBeStopped: boolean;
+    public user: User;
 
     constructor(height: number, width: number, elementID: string) {
         this.tick = 0;
@@ -14,6 +16,8 @@ export class Simulation implements SimulationInterface {
         this.grid = new Grid(height, width, this, elementID);
         this.running = false;
         this.toBeStopped = false;
+        this.user = new User();
+        this.user.cellColor = this.user.getCellColor();
     }
 
     public addButtons(): this {
@@ -49,8 +53,7 @@ export class Simulation implements SimulationInterface {
     }
 
     // Starts the simulation.
-    // TO-DO: Stopping the main loop after current tick process.
-    public start(): void {
+    public start(): number {
         const startBtn = document.getElementById('start');
         startBtn.innerHTML = "Resume";
         startBtn.setAttribute('disabled', '');
@@ -92,13 +95,58 @@ export class Simulation implements SimulationInterface {
             }
         }, this.tickRate);
 
-        return;
+        return this.tick;
     }
 
     // Tell simulation to be stopped after tick processing has completed.
-    // TO-DO: Implement stoppage function to main loop. Consider using events.
     public stop(): number {
         this.toBeStopped = true;
         return this.tick;
+    }
+
+    public reload(height: number, width: number, color: string): void {
+        // Reset tick
+        this.tick = 0;
+
+        // Clear statistics
+        this.grid.cellStats = {
+            alive: 0,
+            dead: 0,
+            totalPop: 0
+        };
+
+        // Remove all rows with cells and their HTML elements
+        this.grid.removeAllRows();
+
+        // Set new height and width
+        this.grid.height = height;
+        this.grid.width = width;
+
+        // Re-initialize and populate grid
+        this.initializeGrid();
+        this.populateGrid();
+
+        // Re-initialize UI
+        const startBtn = document.getElementById('start') as HTMLButtonElement;
+        startBtn.innerHTML = 'Start';
+
+        this.showTick();
+        this.grid.showPopulation();
+    }
+
+    public getSettings(): void {
+        const cellColor = this.user.getCellColor();
+        this.user.cellColor = cellColor;
+
+        const height = this.user.getGridSize();
+        const width = height;
+
+        this.reload(height, width, cellColor);
+    }
+
+    public attachReloadEventHandler(): this {
+        const reloadBtn = document.getElementById('reloadGrid') as HTMLButtonElement;
+        reloadBtn.addEventListener('click', this.getSettings.bind(this));
+        return this;
     }
 }

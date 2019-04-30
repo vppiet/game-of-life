@@ -14,37 +14,31 @@
         <div id="simulationGrid"></div>
         <div id="simulationPanel">
             <div id="cellStatistics">
-                <p>Current tick: <span id="showTick"></span></p>
+                <p style="margin-top: 0px;">Current tick: <span id="showTick"></span></p>
                 <p>Total cell population: <span id="showPop"></span></p>
                 <p>Cells alive: <span id="showAlive"></span></p>
                 <p>Cells dead: <span id="showDead"></span></p>
             </div>
             <div id="buttons"></div>
             <div id="settings">
-                <p style="margin-top: 50px; margin-bottom: 25px;"><b>Settings:</b></p>
-                <span>Grid Size (max 100x100):</span>
-                <input type="number" id="userInput" value="75" min="1" max="100">
-                <script>
-                    function getGridSize() {
-                        let input = document.getElementById("userInput").value;
-                        return input;
-                    }
-                    </script>
+                <p style="margin-top: 50px;"><b>Settings:</b></p>
+                <span>Grid Size:</span>
+                <input type="number" id="userInput" value="75" min="1" max="100"> (max. 100x100)
                 <form>
-                    <p style="display: inline-block;">Cell Color </p>
-                    <input type="radio" name="cellColor" value="white"> White
-                    <input type="radio" name="cellColor" value="red"> Red
-                    <input type="radio" name="cellColor" value="blue"> Blue
+                    <p style="display: inline-block;">Cell Color:</p>
+                    <input type="radio" name="cellColor" value="white" checked>White
+                    <input type="radio" name="cellColor" value="red">Red
+                    <input type="radio" name="cellColor" value="blue">Blue
                 </form>
-                <button id="reloadGrid" style="margin-top: 25px;" onclick="location.reload()">Reload Grid</button>
+                <button id="reloadGrid">Reload Grid</button>
             </div>
         </div>
     </div>
     <script type="module">
         import { GameOfLife } from "../js/gameoflife-bundle.mjs";
 
-        const mySimulation = new GameOfLife(getGridSize(), getGridSize(), '#simulationGrid');
-        mySimulation.initializeGrid().populateGrid().addButtons().showTick();
+        const mySimulation = new GameOfLife(75, 75, '#simulationGrid');
+        mySimulation.initializeGrid().populateGrid().addButtons().attachReloadEventHandler().showTick();
         mySimulation.grid.showPopulation();
         window.mySimulation = mySimulation;
     </script>
