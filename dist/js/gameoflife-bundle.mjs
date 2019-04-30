@@ -71,8 +71,7 @@ class Cell {
     methodCalls++;
     console.log("White Cells: " + methodCalls);
 
-    this.element.style.backgroundColor = "red"; */ 
-//# sourceMappingURL=Cell.js.map
+    this.element.style.backgroundColor = "red"; */
 
 class GridRow {
     constructor(width, id, parentGrid) {
@@ -114,7 +113,6 @@ class GridRow {
         }
     }
 }
-//# sourceMappingURL=GridRow.js.map
 
 class Grid {
     constructor(height, width, parentSimulation, elementID) {
@@ -268,7 +266,6 @@ class Grid {
         }
     }
 }
-//# sourceMappingURL=Grid.js.map
 
 class User {
     constructor() {
@@ -300,7 +297,6 @@ class User {
     getInitialPop() {
     }
 }
-//# sourceMappingURL=User.js.map
 
 class Simulation {
     constructor(height, width, elementID) {
@@ -405,11 +401,19 @@ class Simulation {
         this.grid.showPopulation();
     }
     getSettings() {
+        const warningElem = document.getElementById('gridSizeWarning');
+        const height = this.user.getGridSize();
+        if (height > 100) {
+            warningElem.innerText = 'Must be less or equal to 100!';
+            return;
+        }
+        warningElem.innerText = '';
+        const width = height;
         const cellColor = this.user.getCellColor();
         this.user.cellColor = cellColor;
-        const height = this.user.getGridSize();
-        const width = height;
         this.reload(height, width, cellColor);
+        const headerElem = document.getElementById('header');
+        headerElem.className = cellColor;
     }
     attachReloadEventHandler() {
         const reloadBtn = document.getElementById('reloadGrid');
@@ -441,6 +445,5 @@ const GameOfLife = Simulation;
 //     interface Window { [key: string]: any; }
 // }
 // window.GameOfLife = Simulation;
-//# sourceMappingURL=Index.js.map
 
 export { GameOfLife };

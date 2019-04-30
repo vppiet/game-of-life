@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../css/gameoflife.css" rel="stylesheet">
-    <title>Game of Life: Demo</title>
+    <link href="css/gameoflife.css" rel="stylesheet">
+    <link rel="icon" type="image/ico" sizes="64x64" href="favicon/64x64.ico">
+    <title>Game of Life</title>
 </head>
 <body>
-    <div class="header">
+    <div id="header" class="white">
         <h1>Game of Life</h1>
     </div>
     <div id="simulationUI">
@@ -21,11 +22,12 @@
             </div>
             <div id="buttons"></div>
             <div id="settings">
-                <p style="margin-top: 50px;"><b>Settings:</b></p>
-                <span>Grid Size:</span>
+                <p style="margin-top: 50px;"><b>Settings</b></p>
+                <span>Grid size:</span>
                 <input type="number" id="userInput" value="75" min="1" max="100"> (max. 100x100)
+                <span id="gridSizeWarning"></span>
                 <form>
-                    <p style="display: inline-block;">Cell Color:</p>
+                    <p style="display: inline-block;">Cell color:</p>
                     <input type="radio" name="cellColor" value="white" checked>White
                     <input type="radio" name="cellColor" value="red">Red
                     <input type="radio" name="cellColor" value="blue">Blue
@@ -35,7 +37,7 @@
         </div>
     </div>
     <script type="module">
-        import { GameOfLife } from "../js/gameoflife-bundle.mjs";
+        import { GameOfLife } from "./js/gameoflife-bundle.mjs";
 
         const mySimulation = new GameOfLife(75, 75, '#simulationGrid');
         mySimulation.initializeGrid().populateGrid().addButtons().attachReloadEventHandler().showTick();

@@ -135,13 +135,23 @@ export class Simulation implements SimulationInterface {
     }
 
     public getSettings(): void {
+        const warningElem = document.getElementById('gridSizeWarning') as HTMLSpanElement;
+
+        const height = this.user.getGridSize();
+        if (height > 100) {
+            warningElem.innerText = 'Must be less or equal to 100!';
+            return;
+        }
+
+        warningElem.innerText = '';
+
+        const width = height;
         const cellColor = this.user.getCellColor();
         this.user.cellColor = cellColor;
 
-        const height = this.user.getGridSize();
-        const width = height;
-
         this.reload(height, width, cellColor);
+        const headerElem = document.getElementById('header') as HTMLDivElement;
+        headerElem.className = cellColor;
     }
 
     public attachReloadEventHandler(): this {

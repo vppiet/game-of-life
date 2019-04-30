@@ -3,15 +3,26 @@ body {
     font-size: 100%;
 }
 
-.header {
+#header {
     display: flex;
     justify-content: center;
     padding: 0.2em;
     background: #010000;
-    color: white;
     font-size: 30px;
     font-family:  "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono", monospace;
     margin-bottom: 1em;
+}
+
+.white {
+    color: white;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: blue;
 }
 
 #simulationUI {
@@ -21,7 +32,7 @@ body {
 
 #simulationGrid {
     border: 1px solid rgb(0, 0, 0);
-    width:  500px;
+    width:  495px;
     margin-right: 1em;
 }
 
@@ -29,8 +40,26 @@ body {
     width: 4em;
 }
 
+#gridSizeWarning {
+    color: red;
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 1000px) {
+    #header {
+        font-size: 1em;
+    }
+
     #simulationUI {
         flex-direction: column;
+    }
+
+    #simulationGrid {
+        margin-right: 0;
+        width: 95vw;
+    }
+
+    #simulationPanel {
+        margin-top: 1em;
     }
 }
