@@ -13,3 +13,6 @@ dist/js folder.
 |-----------------|------------------------------------------|
 | `npm run build` | Compile with tsc and bundle with Rollup  |
 | `npm run watch` | Same as `build` but watch for changes    |
+
+## Live demo
+Live demo is hosted at [https://vppiet.github.io/](https://vppiet.github.io/).
